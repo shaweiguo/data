@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/sha/dev/ex/data/lib/TensorFlow_for_Dummies/output"
+all_model_checkpoint_paths: "/home/sha/dev/ex/data/lib/TensorFlow_for_Dummies/output"

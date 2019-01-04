@@ -1,0 +1,6 @@
+model_checkpoint_path: "output-40"
+all_model_checkpoint_paths: "output-0"
+all_model_checkpoint_paths: "output-10"
+all_model_checkpoint_paths: "output-20"
+all_model_checkpoint_paths: "output-30"
+all_model_checkpoint_paths: "output-40"
