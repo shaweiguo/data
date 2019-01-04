@@ -87,7 +87,7 @@ def cb_recommend_request(ch, method, properties, body):
                     ON (A.std_medicine_id = B.std_medicine_id)
                     WHERE A.obsoleted = 'False'
                         AND A.std_medicine_id IN (
-                            SELECT std_medicine_id FROM SFLZ_Medicine WHERE prescription_id = {}
+                            SELECT std_medicine_id FROM SFLZ_Medicine WHERE prescription_id = '{}'
                         )
                         AND A.app_id IN (
                             SELECT app_id FROM SFLZ_AppConfig WHERE collaborate_type <> 1
