@@ -81,25 +81,37 @@ def cb_recommend_request(ch, method, properties, body):
 
         # Third step
         print('333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333')
-        sql = """SELECT A.app_id, A.std_medicine_id, A.medicine_name, A.price, A.num AS stock,
-                    B.ord_qty, A.price * B.ord_qty AS sum_price, A.manufacture FROM SFLZ_AppMedicine as A
-                    LEFT JOIN SFLZ_Medicine as B
-                    ON (A.std_medicine_id = B.std_medicine_id)
-                    WHERE A.obsoleted = 'False'
-                        AND A.std_medicine_id IN (
-                            SELECT std_medicine_id FROM SFLZ_Medicine WHERE prescription_id = '{}'
-                        )
-                        AND A.app_id IN (
-                            SELECT app_id FROM SFLZ_AppConfig WHERE collaborate_type <> 1
-                        )
-                """.format(prescription_id)
-        # sql = "select std_medicine_id, ord_qty from SFLZ_Medicine where prescription_id = '{}'".format(prescription_id)
+        # sql = """SELECT A.app_id, A.std_medicine_id, A.medicine_name, A.price, A.num AS stock,
+        #             B.ord_qty, A.price * B.ord_qty AS sum_price, A.manufacture FROM SFLZ_AppMedicine as A
+        #             LEFT JOIN SFLZ_Medicine as B
+        #             ON (A.std_medicine_id = B.std_medicine_id)
+        #             WHERE A.obsoleted = 'False'
+        #                 AND A.std_medicine_id IN (
+        #                     SELECT std_medicine_id FROM SFLZ_Medicine WHERE prescription_id = '{}'
+        #                 )
+        #                 AND A.app_id IN (
+        #                     SELECT app_id FROM SFLZ_AppConfig WHERE collaborate_type <> 1
+        #                 )
+        #         """.format(prescription_id)
+        sql = "select std_medicine_id, ord_qty from SFLZ_Medicine where prescription_id = '{}'".format(prescription_id)
         print(sql)
         medicines = spark.sql(sql).collect()
         print(medicines)
 
         # Fourth step
         print('444444444444444444444444444444444444444444444444444444444444444444444444444444444444444')
+        sql = """SELECT app_id, std_medicine_id, medicine_name, price, num AS stock, manufacture
+                    FROM SFLZ_AppMedicine
+                    WHERE A.obsoleted = 'False'
+                        AND std_medicine_id IN (
+                            SELECT std_medicine_id FROM SFLZ_Medicine WHERE prescription_id = '{}'
+                        )
+                        AND app_id IN (
+                            SELECT app_id FROM SFLZ_AppConfig WHERE collaborate_type <> 1
+                        )
+                """.format(prescription_id)
+        app_medicines = spark.sql(sql).collect()
+        print(app_medicines)
         # m_apps = {}
         # for medicine in medicines:
         #     print(medicine)
