@@ -102,7 +102,7 @@ def cb_recommend_request(ch, method, properties, body):
         print('444444444444444444444444444444444444444444444444444444444444444444444444444444444444444')
         sql = """SELECT app_id, std_medicine_id, medicine_name, price, num AS stock, manufacture
                     FROM SFLZ_AppMedicine
-                    WHERE A.obsoleted = 'False'
+                    WHERE obsoleted = 'False'
                         AND std_medicine_id IN (
                             SELECT std_medicine_id FROM SFLZ_Medicine WHERE prescription_id = '{}'
                         )
