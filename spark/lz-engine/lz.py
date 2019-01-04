@@ -100,14 +100,14 @@ def cb_recommend_request(ch, method, properties, body):
 
         # Fourth step
         print('444444444444444444444444444444444444444444444444444444444444444444444444444444444444444')
-        sql = """SELECT app_id, std_medicine_id, medicine_name, price, num, manufacture, obsoleted
-                    FROM SFLZ_AppMedicine
-                    WHERE obsoleted = 'False'
-                        AND std_medicine_id IN (
-                            SELECT std_medicine_id FROM SFLZ_Medicine WHERE prescription_id = '{}'
+        sql = """SELECT am.app_id, am.std_medicine_id, am.medicine_name, am.price, am.num, am.manufacture
+                    FROM SFLZ_AppMedicine am
+                    WHERE am.obsoleted = 'False'
+                        AND am.std_medicine_id IN (
+                            SELECT m.std_medicine_id FROM SFLZ_Medicine m WHERE m.prescription_id = '{}'
                         )
-                        AND app_id IN (
-                            SELECT app_id FROM SFLZ_AppConfig WHERE collaborate_type <> 1
+                        AND am.app_id IN (
+                            SELECT ac.app_id FROM SFLZ_AppConfig ac WHERE ac.collaborate_type <> 1
                         )
                 """.format(prescription_id)
         app_medicines = spark.sql(sql).collect()
