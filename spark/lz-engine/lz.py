@@ -100,7 +100,7 @@ def cb_recommend_request(ch, method, properties, body):
 
         # Fourth step
         print('444444444444444444444444444444444444444444444444444444444444444444444444444444444444444')
-        sql = """SELECT app_id, std_medicine_id, medicine_name, price, num AS stock, manufacture
+        sql = """SELECT app_id, std_medicine_id, medicine_name, price, num, manufacture, obsoleted
                     FROM SFLZ_AppMedicine
                     WHERE obsoleted = 'False'
                         AND std_medicine_id IN (
