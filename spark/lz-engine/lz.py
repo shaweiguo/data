@@ -82,8 +82,8 @@ def cb_recommend_request(ch, method, properties, body):
         # Third step
         print('333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333')
         sql = """SELECT A.app_id, A.std_medicine_id, A.medicine_name, A.price, A.num AS stock,
-                    B.ord_qty, A.price * B.ord_qty AS sum_price, A.manufacture FROM SFLZ_AppMedicine A
-                    LEFT JOIN SFLZ_Medicine B
+                    B.ord_qty, A.price * B.ord_qty AS sum_price, A.manufacture FROM SFLZ_AppMedicine as A
+                    LEFT JOIN SFLZ_Medicine as B
                     ON (A.std_medicine_id = B.std_medicine_id)
                     WHERE A.obsoleted = 'False'
                         AND A.std_medicine_id IN (
